@@ -1,7 +1,7 @@
 import { useFormik } from "formik"
 import { registerSchema } from "../schema/Schema"
 import * as apiClient from "../api-client"
-import { useMutation } from "react-query"
+import { useMutation, useQueryClient } from "react-query"
 import { useAppContext } from "../contexts/AppContext"
 import { useNavigate } from "react-router-dom"
 
@@ -16,6 +16,7 @@ export type RegisterformData = {
 const Register = () => {
     const navigate = useNavigate()
     const {showToast} = useAppContext()
+    const queryClient = useQueryClient()
 
     const { values, errors, touched, isSubmitting, handleSubmit, handleChange, handleBlur } = useFormik<RegisterformData>({
         initialValues: {
@@ -32,8 +33,9 @@ const Register = () => {
     })
 
     const mutation = useMutation(apiClient.register, {
-        onSuccess: () => {
+        onSuccess: async () => {
             showToast({ message: "Registration Successful!!", type: "SUCCESS"})
+            await queryClient.invalidateQueries("validateToken");
             navigate("/")
         },
         onError: (error: Error) => {

@@ -10,3 +10,8 @@ export const registerSchema = yup.object({
     password: yup.string().min(6, "Password must be at least 6 characters").matches(passwordRules, { message: "Password should consist of at least an uppercase letter, a lowercase letter and a number" }).required("Password is required"),
     confirmPassword: yup.string().oneOf([yup.ref("password")], "Passwords must match").required("Confirm password is required")
 })
+
+export const signInSchema = yup.object({
+    email: yup.string().email("Email must be a valid email address").required("A valid email is required"),
+    password: yup.string().required("Password is required"),
+})
