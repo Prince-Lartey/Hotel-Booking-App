@@ -3,7 +3,7 @@ import { signInSchema } from "../schema/Schema"
 import { useMutation, useQueryClient } from "react-query"
 import * as apiClient from "../api-client"
 import { useAppContext } from "../contexts/AppContext"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export type SignInFormData = {
     email: string
@@ -43,17 +43,18 @@ const SignIn = () => {
             
             <label htmlFor="email" className="text-gray-700 text-sm font-bold flex-1">
                 Email
-                <input id="email" type="email" value={values.email} onChange={handleChange} onBlur={handleBlur} className={errors.email && touched.email ? "border-2 rounded w-full py-1 px-2 font-normal border-red-600" : "border rounded w-full py-1 px-2 font-normal"}/>
+                <input id="email" type="email" name="email" value={values.email} onChange={handleChange} onBlur={handleBlur} className={errors.email && touched.email ? "border-2 rounded w-full py-1 px-2 font-normal border-red-600" : "border rounded w-full py-1 px-2 font-normal"}/>
                 {errors.email && touched.email && <p className='flex text-xs text-red-500'>{errors.email}</p>}
             </label>
 
             <label htmlFor="password" className="text-gray-700 text-sm font-bold flex-1">
                 Password
-                <input id="password" type="password" value={values.password} onChange={handleChange} onBlur={handleBlur} className={errors.password && touched.password ? "border-2 rounded w-full py-1 px-2 font-normal border-red-600" : "border rounded w-full py-1 px-2 font-normal"}/>
+                <input id="password" type="password" name="password" value={values.password} onChange={handleChange} onBlur={handleBlur} className={errors.password && touched.password ? "border-2 rounded w-full py-1 px-2 font-normal border-red-600" : "border rounded w-full py-1 px-2 font-normal"}/>
                 {errors.password && touched.password && <p className='flex text-xs text-red-500'>{errors.password}</p>}
             </label>
 
-            <span>
+            <span className="flex items-center justify-between">
+                <span className="text-sm">Not Registered? <Link to="/register" className="text-gray-500 hover:underline">Create an account here!</Link></span>
                 <button type="submit" disabled={isSubmitting} className={isSubmitting ? "bg-slate-700 text-white p-2 font-bold text-xl opacity-[0.35]" : "bg-slate-700 text-white p-2 font-bold text-xl hover:bg-slate-500"}>Sign In</button>
             </span>
         </form>
