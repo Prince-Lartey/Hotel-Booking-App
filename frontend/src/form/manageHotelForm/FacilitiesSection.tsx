@@ -3,7 +3,7 @@ import { hotelFacilities } from "../../config/hotel-options-config"
 import { HotelFormData } from "./ManageHotelForm"
 
 const FacilitiesSection = () => {
-    const { register, formState: { errors, touchedFields } } = useFormContext<HotelFormData>()
+    const { register, formState: { errors } } = useFormContext<HotelFormData>()
     return (
         <div>
             <h2 className="text-2xl font-bold mb-3">Facilities</h2>
@@ -28,7 +28,7 @@ const FacilitiesSection = () => {
                     </label>
                 ))}
             </div>
-            {errors.facilities && touchedFields.facilities && <p className='flex text-xs text-red-500'>{errors.facilities.message}</p>}
+            {errors.facilities && <p className='flex text-xs text-red-500 font-semibold'>{errors.facilities.message}</p>}
         </div>
     )
 }
