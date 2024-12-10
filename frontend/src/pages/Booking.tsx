@@ -25,10 +25,9 @@ const Booking = () => {
 
     const { data: paymentIntentData } = useQuery("createPaymentIntent", () => apiClient.createPaymentIntent(hotelId as string, numberOfNights.toString()), { enabled: !!hotelId && numberOfNights > 0})
 
-    const { data: hotel } = useQuery("/fetchHotelById", () => apiClient.fetchHotelById(hotelId as string), { enabled: !!hotelId })
-    const { data: currentUser } = useQuery("fetchCurrentUser", apiClient.fetchCurrentUser )
+    const { data: hotel } = useQuery("fetchHotelByID", () => apiClient.fetchHotelById(hotelId as string), { enabled: !!hotelId })
 
-    console.log(currentUser?.email)
+    const { data: currentUser } = useQuery("fetchCurrentUser", apiClient.fetchCurrentUser)
 
     if (!hotel) {
         return <></>

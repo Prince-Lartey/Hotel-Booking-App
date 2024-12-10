@@ -81,7 +81,7 @@ router.post("/:hotelId/bookings/payment-intent", verifyToken, async (req: any, r
     const totalCost = hotel.pricePerNight * numberOfNights
 
     const paymentIntent = await stripe.paymentIntents.create({
-        amount: totalCost,
+        amount: totalCost * 100,
         currency: "usd",
         metadata: {
             hotelId,
@@ -93,7 +93,7 @@ router.post("/:hotelId/bookings/payment-intent", verifyToken, async (req: any, r
         return res.status(500).json({ message: "Error creating payment intent" })
     }
 
-    const response: PaymentIntentResponse = {
+    const response = {
         paymentIntentId: paymentIntent.id,
         clientSecret: paymentIntent.client_secret.toString(),
         totalCost,
@@ -125,7 +125,7 @@ router.post("/:hotelId/bookings", verifyToken, async (req: any, res: any) => {
             userId: req.userId,
         }
 
-        const hotel = await Hotel.findOneAndUpdate({ _id: req.params.hotelId}, { $push: { bookings: newBooking },})
+        const hotel = await Hotel.findOneAndUpdate({ _id: req.params.hotelId }, { $push: { bookings: newBooking },})
 
         if (!hotel) {
             return res.status(400).json({ message: "hotel not found" })
