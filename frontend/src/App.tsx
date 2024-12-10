@@ -9,8 +9,8 @@ import EditHotel from "./pages/EditHotel"
 import Search from "./pages/Search"
 import Detail from "./pages/Detail"
 import Booking from "./pages/Booking"
-import HomePage from "./pages/HomePage"
 import MyBookings from "./pages/MyBookings"
+import Home from "./pages/Home"
 
 
 const App = () => {
@@ -18,7 +18,7 @@ const App = () => {
   return(
     <Router>
       <Routes>
-        <Route path="/" element={<Layout><HomePage /></Layout>}/>
+        <Route path="/" element={<Layout><Home /></Layout>}/>
         <Route path="/search" element={<Layout><Search /></Layout>}/>
         <Route path="/detail/:hotelId" element={<Layout><Detail /></Layout>}/>
         <Route path="/register" element={<Layout><Register /></Layout>}/>

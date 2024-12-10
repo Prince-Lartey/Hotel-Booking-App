@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express"
 import Hotel from "../models/hotel"
-import { BookingType, HotelSearchResponse, PaymentIntentResponse } from "../shared/types"
+import { BookingType, HotelSearchResponse } from "../shared/types"
 import { param, validationResult } from "express-validator"
 import Stripe from "stripe"
 import verifyToken from "../middleware/auth"
@@ -50,6 +50,16 @@ router.get("/search", async (req: Request, res: Response) => {
         res.status(500).json({ message: "Something went wrong"})
     }
 })
+
+router.get("/", async (req: Request, res: Response) => {
+    try {
+        const hotels = await Hotel.find().sort("-lastUpdated");
+        res.json(hotels);
+    } catch (error) {
+        console.log("error", error);
+        res.status(500).json({ message: "Error fetching hotels" });
+    }
+});
 
 router.get("/:id", [param("id").notEmpty().withMessage("HotelId is required")], async (req: any, res: any) => {
     const errors = validationResult(req)
