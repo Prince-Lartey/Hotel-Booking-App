@@ -10,7 +10,7 @@ const Header = () => {
         <div className="bg-black py-6">
             <div className="container mx-auto flex justify-between">
                 <span className="text-3xl text-white font-bold tracking-tight">
-                    <Link to="/" className="flex items-center gap-2"><Hotel size={48}/><span>Hotel.com</span></Link>
+                    <Link to="/" className="flex items-center gap-2"><Hotel size={32}/><span>Aptly</span></Link>
                 </span>
                 <span className="flex space-x-2">
                     {isLoggedIn ? 
